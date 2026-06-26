@@ -1,28 +1,268 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
+/* ===================================================
+   GitHub Insight AI - Elite CSS (Part 1)
+=================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+
+--bg:#0f172a;
+--card:#1e293b;
+--card2:#111827;
+--primary:#2563eb;
+--success:#22c55e;
+--warning:#facc15;
+--danger:#ef4444;
+--text:#ffffff;
+--muted:#94a3b8;
+--border:#334155;
+
 }
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+
+}
+
 body{
 
-background:#0f172a;
+background:linear-gradient(135deg,#020617,#0f172a,#1e293b);
+
+color:var(--text);
+
+min-height:100vh;
+
+transition:.4s;
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#3b82f6;
+
+border-radius:10px;
+
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+
+background:#020617 !important;
+
+padding:18px 0;
+
+border-bottom:1px solid var(--border);
+
+}
+
+.navbar-brand{
+
+font-size:28px;
+
+font-weight:700;
+
+letter-spacing:1px;
+
+}
+
+.navbar-brand i{
+
+color:#22c55e;
+
+margin-right:8px;
+
+}
+
+.navbar .btn{
+
+border-radius:12px;
+
+}
+
+/* ================= HERO ================= */
+
+.hero{
+
+padding:80px 0;
+
+text-align:center;
+
+}
+
+.hero h1{
+
+font-size:60px;
+
+font-weight:800;
+
+margin-bottom:20px;
+
+}
+
+.hero p{
+
+font-size:20px;
+
+color:var(--muted);
+
+margin-bottom:35px;
+
+}
+
+.hero input{
+
+height:60px;
+
+border-radius:15px;
+
+background:#1e293b;
+
+border:1px solid var(--border);
 
 color:white;
 
-font-family:Poppins,sans-serif;
+}
+
+.hero input:focus{
+
+box-shadow:none;
+
+border-color:#2563eb;
+
+background:#1e293b;
+
+color:white;
 
 }
 
+.hero button{
+
+height:60px;
+
+border-radius:15px;
+
+font-weight:600;
+
+}
+
+/* ================= BUTTONS ================= */
+
+.btn-primary{
+
+background:#2563eb;
+
+border:none;
+
+transition:.3s;
+
+}
+
+.btn-primary:hover{
+
+background:#1d4ed8;
+
+transform:translateY(-2px);
+
+}
+
+.btn-success{
+
+background:#22c55e;
+
+border:none;
+
+}
+
+.btn-success:hover{
+
+background:#16a34a;
+
+}
+
+/* ================= SCORE CIRCLE ================= */
+
+.score-circle{
+
+width:220px;
+
+height:220px;
+
+margin:auto;
+
+border-radius:50%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+background:linear-gradient(135deg,#2563eb,#22c55e);
+
+box-shadow:0 0 35px rgba(37,99,235,.4);
+
+}
+
+.score-circle h1{
+
+font-size:65px;
+
+font-weight:700;
+
+margin:0;
+
+}
+
+.score-circle span{
+
+font-size:20px;
+
+}
+
+.score-circle p{
+
+margin-top:10px;
+
+font-size:18px;
+
+}
+
+/* ================= CARDS ================= */
+
 .card{
 
-background:#1e293b;
+background:rgba(30,41,59,.95);
 
 border:none;
 
 border-radius:20px;
 
-box-shadow:0 0 20px rgba(0,0,0,.3);
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+
+transition:.3s;
+
+color:white;
+
+}
+
+.card:hover{
+
+transform:translateY(-6px);
 
 }
 
@@ -32,162 +272,136 @@ padding:30px;
 
 text-align:center;
 
-transition:.3s;
+}
+
+.stat-card i{
+
+font-size:45px;
+
+margin-bottom:15px;
 
 }
 
-.stat-card:hover{
+.stat-card h2{
 
-transform:translateY(-10px);
+font-size:35px;
+
+font-weight:700;
 
 }
+
+.stat-card p{
+
+color:var(--muted);
+
+}
+
+/* ================= PROGRESS ================= */
 
 .progress{
 
-height:35px;
+background:#1e293b;
 
 border-radius:20px;
 
+overflow:hidden;
+
+height:28px;
+
 }
+
+.progress-bar{
+
+font-size:15px;
+
+font-weight:600;
+
+}
+
+/* ================= TABLE ================= */
+
+.table{
+
+color:white;
+
+}
+
+.table td{
+
+padding:15px;
+
+border-color:#334155;
+
+}
+
+.table th{
+
+border-color:#334155;
+
+}
+
+/* ================= READ ME ================= */
 
 .readme-box{
 
-height:350px;
-
-overflow:auto;
-
-background:#111827;
+background:#0f172a;
 
 padding:20px;
 
 border-radius:15px;
 
+max-height:450px;
+
+overflow:auto;
+
 white-space:pre-wrap;
 
-}
-body{
-    background:linear-gradient(135deg,#0f172a,#1e293b);
-    color:white;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
+line-height:1.8;
+
 }
 
-.container{
-    width:100%;
-    max-width:1100px;
+/* ================= FORM ================= */
+
+.form-control{
+
+background:#1e293b;
+
+border:1px solid #334155;
+
+color:white;
+
 }
 
-h1{
-    text-align:center;
-    margin-bottom:10px;
+.form-control:focus{
+
+background:#1e293b;
+
+color:white;
+
+border-color:#2563eb;
+
+box-shadow:none;
+
 }
 
-.subtitle{
-    text-align:center;
-    color:#cbd5e1;
-    margin-bottom:30px;
+/* ================= BADGES ================= */
+
+.badge{
+
+padding:8px 15px;
+
+font-size:14px;
+
+border-radius:20px;
+
 }
 
-form{
-    display:flex;
-    gap:15px;
-    margin-bottom:25px;
-}
+/* ================= ALERTS ================= */
 
-input{
-    flex:1;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-}
+.alert{
 
-button{
-    padding:15px 30px;
-    border:none;
-    border-radius:10px;
-    background:#2563eb;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:.3s;
-}
+border:none;
 
-button:hover{
-    background:#1d4ed8;
-}
-
-.error{
-    background:#dc2626;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:20px;
-    text-align:center;
-}
-
-.card{
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(15px);
-    border-radius:20px;
-    padding:30px;
-}
-
-.card h2{
-    margin-bottom:10px;
-}
-
-.card p{
-    color:#e2e8f0;
-}
-
-.grid{
-    margin-top:25px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-}
-
-.box{
-    background:#1e293b;
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-    transition:.3s;
-}
-
-.box:hover{
-    transform:translateY(-6px);
-}
-
-.box h3{
-    margin:10px 0;
-}
-
-.visit{
-    display:inline-block;
-    margin-top:30px;
-    background:#22c55e;
-    color:white;
-    padding:15px 25px;
-    text-decoration:none;
-    border-radius:10px;
-}
-
-.visit:hover{
-    background:#16a34a;
-}
-
-@media(max-width:768px){
-
-form{
-flex-direction:column;
-}
-
-button{
-width:100%;
-}
+border-radius:15px;
 
 }
