@@ -1,168 +1,162 @@
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Repository Intelligence Dashboard</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GitHub Insight AI</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
 <body>
 
+<nav class="navbar navbar-dark bg-dark shadow">
+
 <div class="container">
 
-    <h1>🚀 GitHub Repository Intelligence Dashboard</h1>
+<a class="navbar-brand fw-bold" href="/">
 
-    <p class="subtitle">
-        Analyze any public GitHub repository instantly.
-    </p>
+🚀 GitHub Insight AI
 
-    <form method="POST">
-
-        <input
-            type="text"
-            name="repo_url"
-            placeholder="https://github.com/owner/repository"
-            required>
-
-        <button type="submit">
-            Analyze Repository
-        </button>
-
-    </form>
-
-    {% if error %}
-
-    <div class="error">
-        {{ error }}
-    </div>
-
-    {% endif %}
-
-    {% if repo %}
-
-    <div class="card">
-        {% if repo %}
-
-<hr>
-
-<h2>Repository Health Score</h2>
-
-<h1>{{ repo.health }}/100</h1>
-
-<hr>
-
-<h2>Languages</h2>
-
-<ul>
-
-{% for language, bytes in repo.languages.items() %}
-
-<li>{{ language }} : {{ bytes }} Bytes</li>
-
-{% endfor %}
-
-</ul>
-
-<hr>
-
-<h2>Top Contributors</h2>
-
-<ul>
-
-{% for user in repo.contributors %}
-
-<li>{{ user.login }} ({{ user.contributions }} contributions)</li>
-
-{% endfor %}
-
-</ul>
-
-<hr>
-
-<h2>README Preview</h2>
-
-<pre>
-
-{{ repo.readme }}
-
-</pre>
-
-{% endif %}
-
-        <h2>{{ repo.name }}</h2>
-
-        <p>{{ repo.description }}</p>
-
-        <div class="grid">
-
-            <div class="box">
-                ⭐
-                <h3>Stars</h3>
-                <p>{{ repo.stars }}</p>
-            </div>
-
-            <div class="box">
-                🍴
-                <h3>Forks</h3>
-                <p>{{ repo.forks }}</p>
-            </div>
-
-            <div class="box">
-                👀
-                <h3>Watchers</h3>
-                <p>{{ repo.watchers }}</p>
-            </div>
-
-            <div class="box">
-                🐞
-                <h3>Issues</h3>
-                <p>{{ repo.issues }}</p>
-            </div>
-
-            <div class="box">
-                💻
-                <h3>Language</h3>
-                <p>{{ repo.language }}</p>
-            </div>
-
-            <div class="box">
-                👤
-                <h3>Owner</h3>
-                <p>{{ repo.owner }}</p>
-            </div>
-
-            <div class="box">
-                📅
-                <h3>Created</h3>
-                <p>{{ repo.created }}</p>
-            </div>
-
-            <div class="box">
-                🔄
-                <h3>Updated</h3>
-                <p>{{ repo.updated }}</p>
-            </div>
-
-        </div>
-
-        <a
-            href="{{ repo.url }}"
-            target="_blank"
-            class="visit">
-
-            View Repository on GitHub
-
-        </a>
-
-    </div>
-
-    {% endif %}
+</a>
 
 </div>
+
+</nav>
+
+<section class="hero">
+
+<div class="container text-center">
+
+<h1 class="display-3 fw-bold">
+
+Analyze Any GitHub Repository
+
+</h1>
+
+<p class="lead">
+
+AI Powered Repository Intelligence Dashboard
+
+</p>
+
+<form method="POST">
+
+<div class="row justify-content-center">
+
+<div class="col-md-8">
+
+<input
+
+class="form-control form-control-lg"
+
+type="text"
+
+name="repo_url"
+
+placeholder="https://github.com/user/repository"
+
+required>
+
+</div>
+
+<div class="col-md-2">
+
+<button class="btn btn-primary btn-lg w-100">
+
+Analyze
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</section>
+
+<section class="stats">
+
+<div class="container">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="card p-4 text-center">
+
+<h2>2M+</h2>
+
+<p>Repositories</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card p-4 text-center">
+
+<h2>100%</h2>
+
+<p>Free</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card p-4 text-center">
+
+<h2>AI</h2>
+
+<p>Insights</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card p-4 text-center">
+
+<h2>Charts</h2>
+
+<p>Analytics</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% if repo %}
+
+<script>
+
+window.location.href="/dashboard";
+
+</script>
+
+{% endif %}
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
 </html>
