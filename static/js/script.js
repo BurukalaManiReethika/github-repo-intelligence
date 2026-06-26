@@ -1,15 +1,32 @@
-const form = document.querySelector("form");
+document.addEventListener("DOMContentLoaded",()=>{
 
-if(form){
+const ctx=document.getElementById("languageChart");
 
-form.addEventListener("submit",()=>{
+if(ctx){
 
-const button=document.querySelector("button");
+new Chart(ctx,{
 
-button.innerHTML="Analyzing...";
+type:"pie",
 
-button.disabled=true;
+data:{
+
+labels:[
+"Python",
+"HTML",
+"CSS",
+"JavaScript"
+],
+
+datasets:[{
+
+data:[45,25,15,15]
+
+}]
+
+}
 
 });
 
 }
+
+});
