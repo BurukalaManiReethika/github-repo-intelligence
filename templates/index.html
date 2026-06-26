@@ -1,0 +1,121 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repository Intelligence Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🚀 GitHub Repository Intelligence Dashboard</h1>
+
+    <p class="subtitle">
+        Analyze any public GitHub repository instantly.
+    </p>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="repo_url"
+            placeholder="https://github.com/owner/repository"
+            required>
+
+        <button type="submit">
+            Analyze Repository
+        </button>
+
+    </form>
+
+    {% if error %}
+
+    <div class="error">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+    {% if repo %}
+
+    <div class="card">
+
+        <h2>{{ repo.name }}</h2>
+
+        <p>{{ repo.description }}</p>
+
+        <div class="grid">
+
+            <div class="box">
+                ⭐
+                <h3>Stars</h3>
+                <p>{{ repo.stars }}</p>
+            </div>
+
+            <div class="box">
+                🍴
+                <h3>Forks</h3>
+                <p>{{ repo.forks }}</p>
+            </div>
+
+            <div class="box">
+                👀
+                <h3>Watchers</h3>
+                <p>{{ repo.watchers }}</p>
+            </div>
+
+            <div class="box">
+                🐞
+                <h3>Issues</h3>
+                <p>{{ repo.issues }}</p>
+            </div>
+
+            <div class="box">
+                💻
+                <h3>Language</h3>
+                <p>{{ repo.language }}</p>
+            </div>
+
+            <div class="box">
+                👤
+                <h3>Owner</h3>
+                <p>{{ repo.owner }}</p>
+            </div>
+
+            <div class="box">
+                📅
+                <h3>Created</h3>
+                <p>{{ repo.created }}</p>
+            </div>
+
+            <div class="box">
+                🔄
+                <h3>Updated</h3>
+                <p>{{ repo.updated }}</p>
+            </div>
+
+        </div>
+
+        <a
+            href="{{ repo.url }}"
+            target="_blank"
+            class="visit">
+
+            View Repository on GitHub
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
