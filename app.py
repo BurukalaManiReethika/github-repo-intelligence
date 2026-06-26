@@ -4,95 +4,156 @@ import base64
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+GITHUB_API = "https://api.github.com"
+
+
+def calculate_score(repo):
+
+    score = 50
+
+    if repo["stargazers_count"] > 50:
+        score += 10
+
+    if repo["forks_count"] > 20:
+        score += 10
+
+    if repo["watchers_count"] > 20:
+        score += 10
+
+    if repo["description"]:
+        score += 5
+
+    if repo["license"]:
+        score += 5
+
+    if len(repo["topics"]) > 0:
+        score += 5
+
+    if repo["open_issues_count"] < 10:
+        score += 5
+
+    return min(score,100)
+
+
+@app.route("/",methods=["GET","POST"])
 def home():
-    repo = None
-    error = None
 
-    if request.method == "POST":
+    repo=None
+    error=None
 
-        repo_url = request.form["repo_url"]
+    if request.method=="POST":
+
+        url=request.form["repo_url"]
 
         try:
-            parts = repo_url.rstrip("/").split("/")
-            owner = parts[-2]
-            repo_name = parts[-1]
 
-            repo_api = f"https://api.github.com/repos/{owner}/{repo_name}"
-            lang_api = f"https://api.github.com/repos/{owner}/{repo_name}/languages"
-            contrib_api = f"https://api.github.com/repos/{owner}/{repo_name}/contributors"
-            readme_api = f"https://api.github.com/repos/{owner}/{repo_name}/readme"
+            owner=url.rstrip("/").split("/")[-2]
+            repository=url.rstrip("/").split("/")[-1]
 
-            repo_res = requests.get(repo_api)
-
-            if repo_res.status_code != 200:
-                raise Exception()
-
-            data = repo_res.json()
-
-            languages = requests.get(lang_api).json()
-
-            contributors = requests.get(contrib_api).json()
-
-            readme = requests.get(readme_api)
-
-            readme_text = ""
-
-            if readme.status_code == 200:
-
-                encoded = readme.json()["content"]
-
-                readme_text = base64.b64decode(encoded).decode(
-                    "utf-8",
-                    errors="ignore"
-                )[:1000]
-
-            health = 50
-
-            if data["stargazers_count"] > 50:
-                health += 15
-
-            if data["forks_count"] > 20:
-                health += 10
-
-            if data["open_issues_count"] < 10:
-                health += 10
-
-            if data["watchers_count"] > 20:
-                health += 10
-
-            if data["description"]:
-                health += 5
-
-            if health > 100:
-                health = 100
-
-            repo = {
-                "name": data["name"],
-                "owner": data["owner"]["login"],
-                "description": data["description"],
-                "stars": data["stargazers_count"],
-                "forks": data["forks_count"],
-                "watchers": data["watchers_count"],
-                "issues": data["open_issues_count"],
-                "language": data["language"],
-                "created": data["created_at"][:10],
-                "updated": data["updated_at"][:10],
-                "url": data["html_url"],
-                "health": health,
-                "languages": languages,
-                "contributors": contributors[:5],
-                "readme": readme_text
+            headers={
+                "Accept":"application/vnd.github+json"
             }
 
-        except:
-            error = "Invalid GitHub Repository"
+            repo_res=requests.get(
+                f"{GITHUB_API}/repos/{owner}/{repository}",
+                headers=headers
+            )
+
+            if repo_res.status_code!=200:
+                raise Exception()
+
+            repo_data=repo_res.json()
+
+            language=requests.get(
+                f"{GITHUB_API}/repos/{owner}/{repository}/languages"
+            ).json()
+
+            contributors=requests.get(
+                f"{GITHUB_API}/repos/{owner}/{repository}/contributors"
+            ).json()
+
+            readme=requests.get(
+                f"{GITHUB_API}/repos/{owner}/{repository}/readme"
+            )
+
+            readme_text=""
+
+            if readme.status_code==200:
+
+                readme_text=base64.b64decode(
+
+                    readme.json()["content"]
+
+                ).decode(
+
+                    "utf-8",
+                    errors="ignore"
+
+                )[:3000]
+
+            repo={
+
+                "name":repo_data["name"],
+
+                "owner":repo_data["owner"]["login"],
+
+                "avatar":repo_data["owner"]["avatar_url"],
+
+                "description":repo_data["description"],
+
+                "stars":repo_data["stargazers_count"],
+
+                "forks":repo_data["forks_count"],
+
+                "watchers":repo_data["watchers_count"],
+
+                "issues":repo_data["open_issues_count"],
+
+                "language":repo_data["language"],
+
+                "created":repo_data["created_at"][:10],
+
+                "updated":repo_data["updated_at"][:10],
+
+                "url":repo_data["html_url"],
+
+                "license":repo_data["license"]["name"] if repo_data["license"] else "No License",
+
+                "topics":repo_data.get("topics",[]),
+
+                "languages":language,
+
+                "contributors":contributors[:6],
+
+                "readme":readme_text,
+
+                "health":calculate_score(repo_data)
+
+            }
+
+            return render_template(
+
+                "dashboard.html",
+
+                repo=repo
+
+            )
+
+        except Exception:
+
+            error="Invalid GitHub Repository URL"
 
     return render_template(
+
         "index.html",
-        repo=repo,
+
+        repo=None,
+
         error=error
+
     )
 
-if __name__ == "__main__":
+
+if __name__=="__main__":
+
     app.run(debug=True)
