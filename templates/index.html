@@ -43,6 +43,53 @@
     {% if repo %}
 
     <div class="card">
+        {% if repo %}
+
+<hr>
+
+<h2>Repository Health Score</h2>
+
+<h1>{{ repo.health }}/100</h1>
+
+<hr>
+
+<h2>Languages</h2>
+
+<ul>
+
+{% for language, bytes in repo.languages.items() %}
+
+<li>{{ language }} : {{ bytes }} Bytes</li>
+
+{% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>Top Contributors</h2>
+
+<ul>
+
+{% for user in repo.contributors %}
+
+<li>{{ user.login }} ({{ user.contributions }} contributions)</li>
+
+{% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>README Preview</h2>
+
+<pre>
+
+{{ repo.readme }}
+
+</pre>
+
+{% endif %}
 
         <h2>{{ repo.name }}</h2>
 
