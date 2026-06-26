@@ -33,8 +33,56 @@ def calculate_score(repo):
         score += 5
 
     return min(score,100)
+    @app.route("/favorite", methods=["POST"])
+def favorite():
 
+    repo_name = request.form["repo_name"]
 
+    repo_url = request.form["repo_url"]
+
+    stars = request.form["stars"]
+
+    language = request.form["language"]
+
+    exists = FavoriteRepository.query.filter_by(
+        repo_url=repo_url
+    ).first()
+    @app.route("/favorites")
+    def favorites():
+
+    favorites = FavoriteRepository.query.all()
+
+    return render_template(
+        "favorites.html",
+        favorites=favorites
+    )
+
+    if exists:
+        return {"status": "exists"}
+
+    favorite = FavoriteRepository(
+        repo_name=repo_name,
+        repo_url=repo_url,
+        stars=stars,
+        language=language
+    )
+
+    db.session.add(favorite)
+    db.session.commit()
+
+    return {"status": "saved"}
+
+history = SearchHistory(
+
+    repo_name=repo["name"],
+
+    repo_url=repo["url"]
+
+)
+
+db.session.add(history)
+
+db.session.commit()
 @app.route("/",methods=["GET","POST"])
 def home():
 
