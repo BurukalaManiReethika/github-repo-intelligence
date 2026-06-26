@@ -16,7 +16,11 @@ labels:[
 "CSS",
 "JavaScript"
 ],
+function toggleTheme(){
 
+document.body.classList.toggle("light");
+
+}
 datasets:[{
 
 data:[45,25,15,15]
