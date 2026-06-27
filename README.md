@@ -1,6 +1,6 @@
 # GitHub Repository Intelligence Dashboard
 
-A Flask web application that analyzes public GitHub repositories.
+A Flask web application that analyzes public GitHub repositories
 
 ## Features
 
