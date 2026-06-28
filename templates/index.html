@@ -1,43 +1,174 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GitHub Insight AI</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0b1120;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      padding: 1.2rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+    }
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 65px);
+      padding: 2rem;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, #1a2a4a 0%, #0b1120 65%);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      color: #7ca3cc;
+      font-size: 1.15rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Search */
+    .search-row {
+      display: flex;
+      gap: 0;
+      width: 100%;
+      max-width: 780px;
+      margin-bottom: 3rem;
+    }
+
+    .search-row input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      background: #151f35;
+      border: 1.5px solid #253352;
+      border-right: none;
+      border-radius: 12px 0 0 12px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .search-row input::placeholder { color: #4a6080; }
+    .search-row input:focus { border-color: #3b6fd4; }
+
+    .search-row button {
+      padding: 1rem 2rem;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 0 12px 12px 0;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+      white-space: nowrap;
+    }
+    .search-row button:hover { background: #1d4ed8; }
+
+    .error-msg {
+      color: #f87171;
+      margin-top: -2rem;
+      margin-bottom: 1.5rem;
+      font-size: .9rem;
+    }
+
+    /* Stats cards */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .stat-card {
+      background: #151f35;
+      border: 1px solid #1e3050;
+      border-radius: 14px;
+      padding: 1.8rem 1rem;
+      text-align: center;
+    }
+
+    .stat-card .num {
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin-bottom: .3rem;
+    }
+
+    .stat-card .lbl {
+      font-size: .85rem;
+      font-weight: 600;
+      color: #7ca3cc;
+    }
+
+    @media (max-width: 600px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .search-row { flex-direction: column; }
+      .search-row input  { border-right: 1.5px solid #253352; border-radius: 12px; }
+      .search-row button { border-radius: 12px; }
+    }
+  </style>
 </head>
-<body class="home-page">
-  <nav class="navbar">
+<body>
+  <nav>
     <a href="/" class="brand">🚀 GitHub Insight AI</a>
-    <a href="/favorites" class="nav-link">⭐ Favorites</a>
   </nav>
 
   <main class="hero">
     <h1>Analyze Any GitHub Repository</h1>
-    <p class="subtitle">AI-Powered Repository Intelligence Dashboard</p>
+    <p>AI Powered Repository Intelligence Dashboard</p>
 
-    <form method="POST" action="/" class="search-form">
-      <div class="input-group">
+    <form method="POST" action="/">
+      <div class="search-row">
         <input
           type="text"
           name="repo_url"
           placeholder="https://github.com/owner/repository"
           required
-          class="repo-input"
           autofocus
         />
-        <button type="submit" class="analyze-btn">Analyze →</button>
+        <button type="submit">Analyze</button>
       </div>
       {% if error %}
         <p class="error-msg">⚠️ {{ error }}</p>
       {% endif %}
     </form>
 
-    <div class="stats-bar">
-      <div class="stat"><span class="stat-num">2M+</span><span class="stat-label">Repositories</span></div>
-      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Free</span></div>
-      <div class="stat"><span class="stat-num">AI</span><span class="stat-label">Insights</span></div>
-      <div class="stat"><span class="stat-num">📊</span><span class="stat-label">Analytics</span></div>
+    <div class="stats">
+      <div class="stat-card"><div class="num">2M+</div><div class="lbl">Repositories</div></div>
+      <div class="stat-card"><div class="num">100%</div><div class="lbl">Free</div></div>
+      <div class="stat-card"><div class="num">AI</div><div class="lbl">Insights</div></div>
+      <div class="stat-card"><div class="num">Charts</div><div class="lbl">Analytics</div></div>
     </div>
   </main>
 </body>
