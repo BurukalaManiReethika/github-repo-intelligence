@@ -1,830 +1,200 @@
 
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>GitHub Insight AI Dashboard</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ repo.name }} – GitHub Insight AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
-
-<body>
-
-<!-- ================= NAVBAR ================= -->
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-
-<div class="container">
-
-<a class="navbar-brand fw-bold fs-3" href="/">
-
-<i class="bi bi-github"></i>
-
-GitHub Insight AI
-
-</a>
-
-<button class="btn btn-outline-light" onclick="toggleTheme()">
-
-<i class="bi bi-moon-stars-fill"></i>
-
-</button>
-
-</div>
-
-</nav>
-
-<!-- ================= HERO ================= -->
-
-<section class="container mt-5">
-
-<div class="row">
-
-<div class="col-lg-8">
-
-<h1 class="display-5 fw-bold">
-
-{{ repo.name }}
-
-</h1>
-
-<p class="lead">
-
-{{ repo.description }}
-
-</p>
-
-<a href="{{ repo.url }}" target="_blank" class="btn btn-success">
-
-<i class="bi bi-github"></i>
-
-Open Repository
-
-</a>
-
-</div>
-
-<div class="col-lg-4 text-center">
-
-<div class="score-circle">
-
-<h1>
-
-{{ repo.health }}
-
-</h1>
-
-<span>/100</span>
-
-<p>
-
-Repository Score
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= SEARCH ================= -->
-
-<section class="container mt-5">
-
-<div class="card p-4 shadow-lg">
-
-<form method="POST">
-
-<div class="row">
-
-<div class="col-lg-10">
-
-<input
-
-type="text"
-
-name="repo_url"
-
-class="form-control form-control-lg"
-
-placeholder="https://github.com/user/repository"
-
-required>
-
-</div>
-
-<div class="col-lg-2">
-
-<button class="btn btn-primary btn-lg w-100">
-
-Analyze
-
-</button>
-
-</div>
-
-</div>
-
-</form>
-
-</div>
-
-</section>
-
-<!-- ================= STATS ================= -->
-
-<section class="container mt-5">
-
-<div class="row g-4">
-
-<div class="col-md-3">
-
-<div class="card stat-card">
-
-<i class="bi bi-star-fill text-warning fs-1"></i>
-
-<h2>{{ repo.stars }}</h2>
-
-<p>Stars</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card stat-card">
-
-<i class="bi bi-diagram-3-fill text-info fs-1"></i>
-
-<h2>{{ repo.forks }}</h2>
-
-<p>Forks</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card stat-card">
-
-<i class="bi bi-eye-fill text-success fs-1"></i>
-
-<h2>{{ repo.watchers }}</h2>
-
-<p>Watchers</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card stat-card">
-
-<i class="bi bi-bug-fill text-danger fs-1"></i>
-
-<h2>{{ repo.issues }}</h2>
-
-<p>Issues</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card stat-card">
-
-<i class="bi bi-code-slash text-primary fs-1"></i>
-
-<h4>{{ repo.language }}</h4>
-
-<p>Main Language</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card stat-card">
-
-<i class="bi bi-person-circle text-secondary fs-1"></i>
-
-<h4>{{ repo.owner }}</h4>
-
-<p>Owner</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card stat-card">
-
-<i class="bi bi-calendar-check text-warning fs-1"></i>
-
-<h5>{{ repo.created }}</h5>
-
-<p>Created</p>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card stat-card">
-
-<i class="bi bi-arrow-repeat text-success fs-1"></i>
-
-<h5>{{ repo.updated }}</h5>
-
-<p>Last Updated</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= REPOSITORY HEALTH ================= -->
-
-<section class="container mt-5">
-
-<div class="card p-4">
-
-<h3 class="mb-4">
-
-Repository Health
-
-</h3>
-
-<div class="progress" style="height:30px;">
-
-<div
-
-class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-
-style="width:{{ repo.health }}%;">
-
-{{ repo.health }}%
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= NEXT PART STARTS HERE ================= -->
-
-<!-- Language Charts -->
-
-<!-- AI Review -->
-
-<!-- Contributors -->
-
-<!-- README -->
-
-<!-- Timeline -->
-
-<!-- Footer -->
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+<body class="dashboard-page">
+  <nav class="navbar">
+    <a href="/" class="brand">🚀 GitHub Insight AI</a>
+    <div class="nav-right">
+      <a href="/" class="nav-link">← New Search</a>
+      <a href="/favorites" class="nav-link">⭐ Favorites</a>
+    </div>
+  </nav>
+
+  <main class="dashboard">
+
+    <!-- Header card -->
+    <section class="repo-header card">
+      <img src="{{ repo.avatar }}" alt="{{ repo.owner }}" class="avatar" />
+      <div class="repo-meta">
+        <h1 class="repo-title">
+          <a href="{{ repo.url }}" target="_blank" rel="noopener">{{ repo.owner }}/{{ repo.name }}</a>
+        </h1>
+        <p class="repo-desc">{{ repo.description }}</p>
+        <div class="tag-row">
+          {% for topic in repo.topics %}
+            <span class="tag">{{ topic }}</span>
+          {% endfor %}
+          {% if repo.license != "No License" %}
+            <span class="tag tag-license">⚖️ {{ repo.license }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <button
+        class="fav-btn {% if repo.is_favorite %}active{% endif %}"
+        data-url="{{ repo.url }}"
+        data-name="{{ repo.owner }}/{{ repo.name }}"
+        data-stars="{{ repo.stars }}"
+        data-language="{{ repo.language }}"
+        title="Add to favorites"
+      >
+        {% if repo.is_favorite %}★ Saved{% else %}☆ Save{% endif %}
+      </button>
+    </section>
+
+    <!-- Stats row -->
+    <section class="stats-row">
+      <div class="stat-card">
+        <span class="stat-icon">⭐</span>
+        <span class="stat-value">{{ repo.stars | int | format_number }}</span>
+        <span class="stat-name">Stars</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🍴</span>
+        <span class="stat-value">{{ repo.forks | int | format_number }}</span>
+        <span class="stat-name">Forks</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">👁️</span>
+        <span class="stat-value">{{ repo.watchers | int | format_number }}</span>
+        <span class="stat-name">Watchers</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🐛</span>
+        <span class="stat-value">{{ repo.issues }}</span>
+        <span class="stat-name">Open Issues</span>
+      </div>
+    </section>
+
+    <div class="two-col">
+
+      <!-- Left column -->
+      <div class="left-col">
+
+        <!-- Health score -->
+        <div class="card health-card">
+          <h2>Repository Health</h2>
+          <div class="health-ring">
+            <svg viewBox="0 0 100 100" class="ring-svg">
+              <circle cx="50" cy="50" r="40" class="ring-bg" />
+              <circle
+                cx="50" cy="50" r="40"
+                class="ring-fill"
+                stroke-dasharray="{{ (repo.health / 100) * 251.2 }} 251.2"
+                style="stroke:{{ '#22c55e' if repo.health >= 75 else ('#f59e0b' if repo.health >= 50 else '#ef4444') }}"
+              />
+            </svg>
+            <div class="ring-label">{{ repo.health }}<small>/100</small></div>
+          </div>
+          <p class="health-note">
+            {% if repo.health >= 75 %}✅ Great health – well-maintained repo.
+            {% elif repo.health >= 50 %}⚠️ Decent health – room for improvement.
+            {% else %}❌ Needs attention – consider adding topics, license, or fixing issues.
+            {% endif %}
+          </p>
+        </div>
+
+        <!-- Info table -->
+        <div class="card info-card">
+          <h2>Details</h2>
+          <table class="info-table">
+            <tr><td>Language</td><td><strong>{{ repo.language }}</strong></td></tr>
+            <tr><td>Created</td><td>{{ repo.created }}</td></tr>
+            <tr><td>Last Updated</td><td>{{ repo.updated }}</td></tr>
+            <tr><td>License</td><td>{{ repo.license }}</td></tr>
+          </table>
+        </div>
+
+        <!-- Languages bar -->
+        {% if repo.languages %}
+        <div class="card lang-card">
+          <h2>Languages</h2>
+          {% set total = repo.languages.values() | sum %}
+          <div class="lang-bar">
+            {% for lang, bytes in repo.languages.items() %}
+              <div
+                class="lang-segment"
+                style="width: {{ (bytes / total * 100) | round(1) }}%"
+                title="{{ lang }}: {{ (bytes / total * 100) | round(1) }}%"
+              ></div>
+            {% endfor %}
+          </div>
+          <ul class="lang-list">
+            {% for lang, bytes in repo.languages.items() %}
+              <li><span class="lang-dot"></span>{{ lang }} <em>{{ (bytes / total * 100) | round(1) }}%</em></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+      </div>
+
+      <!-- Right column -->
+      <div class="right-col">
+
+        <!-- Contributors -->
+        {% if repo.contributors %}
+        <div class="card contrib-card">
+          <h2>Top Contributors</h2>
+          <div class="contrib-grid">
+            {% for c in repo.contributors %}
+              <a href="https://github.com/{{ c.login }}" target="_blank" rel="noopener" class="contrib-item">
+                <img src="{{ c.avatar_url }}" alt="{{ c.login }}" class="contrib-avatar" />
+                <span class="contrib-name">{{ c.login }}</span>
+                <span class="contrib-commits">{{ c.contributions }} commits</span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- README preview -->
+        {% if repo.readme %}
+        <div class="card readme-card">
+          <h2>README Preview</h2>
+          <pre class="readme-pre">{{ repo.readme }}</pre>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Format numbers client-side (template filter fallback)
+    document.querySelectorAll('.stat-value').forEach(el => {
+      const n = parseInt(el.textContent.replace(/,/g, ''), 10);
+      if (!isNaN(n)) el.textContent = n.toLocaleString();
+    });
+
+    // Favorite button
+    const favBtn = document.querySelector('.fav-btn');
+    if (favBtn) {
+      favBtn.addEventListener('click', async () => {
+        const res = await fetch('/favorite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            repo_url:  favBtn.dataset.url,
+            repo_name: favBtn.dataset.name,
+            stars:     favBtn.dataset.stars,
+            language:  favBtn.dataset.language,
+          }),
+        });
+        const data = await res.json();
+        if (data.status === 'saved') {
+          favBtn.textContent = '★ Saved';
+          favBtn.classList.add('active');
+        } else if (data.status === 'removed') {
+          favBtn.textContent = '☆ Save';
+          favBtn.classList.remove('active');
+        }
+      });
+    }
+  </script>
 </body>
-
-</html> 
-<!-- ================= LANGUAGE CHART ================= -->
-
-<section class="container mt-5">
-
-<div class="row">
-
-<div class="col-lg-6">
-
-<div class="card p-4 shadow-lg">
-
-<h3 class="mb-4">
-
-📊 Language Distribution
-
-</h3>
-
-<canvas id="languageChart" height="250"></canvas>
-
-</div>
-
-</div>
-
-<div class="col-lg-6">
-
-<div class="card p-4 shadow-lg">
-
-<h3 class="mb-4">
-
-📈 Repository Statistics
-
-</h3>
-
-<canvas id="statsChart" height="250"></canvas>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= AI REVIEW ================= -->
-
-<section class="container mt-5">
-
-<div class="card p-5 shadow-lg">
-
-<h2 class="mb-4">
-
-🤖 AI Repository Review
-
-</h2>
-
-<div class="alert alert-success">
-
-<h4>Overall Analysis</h4>
-
-<p>
-
-This repository demonstrates good development practices.
-
-Documentation is available.
-
-Repository activity appears healthy.
-
-The project structure is organized.
-
-</p>
-
-</div>
-
-<div class="row">
-
-<div class="col-lg-4">
-
-<div class="card bg-success text-white p-3">
-
-<h4>💪 Strengths</h4>
-
-<ul>
-
-<li>Good README</li>
-
-<li>Active Repository</li>
-
-<li>Popular Project</li>
-
-<li>Clean Structure</li>
-
-<li>Open Source</li>
-
-</ul>
-
-</div>
-
-</div>
-
-<div class="col-lg-4">
-
-<div class="card bg-warning text-dark p-3">
-
-<h4>⚠ Weaknesses</h4>
-
-<ul>
-
-<li>Increase Test Coverage</li>
-
-<li>Add More Releases</li>
-
-<li>Improve Documentation</li>
-
-<li>Add CI/CD</li>
-
-<li>More Contributors</li>
-
-</ul>
-
-</div>
-
-</div>
-
-<div class="col-lg-4">
-
-<div class="card bg-info text-white p-3">
-
-<h4>💡 Recommendations</h4>
-
-<ul>
-
-<li>Add GitHub Actions</li>
-
-<li>Create Wiki</li>
-
-<li>Improve Issues Template</li>
-
-<li>Add Security Policy</li>
-
-<li>Use Semantic Versioning</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= QUALITY SCORE ================= -->
-
-<section class="container mt-5">
-
-<div class="card p-5 text-center shadow-lg">
-
-<h2>
-
-🏆 Repository Quality Rating
-
-</h2>
-
-<h1 class="display-1 text-success">
-
-{{ repo.health }}/100
-
-</h1>
-
-<div class="mb-3">
-
-⭐⭐⭐⭐⭐
-
-</div>
-
-<h4 class="text-success">
-
-Excellent Repository
-
-</h4>
-
-<p>
-
-This repository follows modern development practices and is well maintained.
-
-</p>
-
-</div>
-
-</section>
-
-<!-- ================= CHART SCRIPT ================= -->
-
-<script>
-
-const languageCtx=document.getElementById("languageChart");
-
-if(languageCtx){
-
-new Chart(languageCtx,{
-
-type:"pie",
-
-data:{
-
-labels:["Python","HTML","CSS","JavaScript"],
-
-datasets:[{
-
-data:[55,20,10,15]
-
-}]
-
-}
-
-});
-
-}
-
-const statsCtx=document.getElementById("statsChart");
-
-if(statsCtx){
-
-new Chart(statsCtx,{
-
-type:"bar",
-
-data:{
-
-labels:["Stars","Forks","Watchers","Issues"],
-
-datasets:[{
-
-label:"Repository Stats",
-
-data:[
-
-{{ repo.stars }},
-
-{{ repo.forks }},
-
-{{ repo.watchers }},
-
-{{ repo.issues }}
-
-]
-
-}]
-
-}
-
-});
-
-}
-
-</script>
-<!-- ================= CONTRIBUTORS ================= -->
-
-<section class="container mt-5">
-
-<div class="card p-4 shadow-lg">
-
-<h2 class="mb-4">👨‍💻 Top Contributors</h2>
-
-<div class="row">
-
-{% for user in repo.contributors %}
-
-<div class="col-lg-4 col-md-6 mb-4">
-
-<div class="card contributor-card text-center p-4">
-
-<img src="{{ user.avatar_url }}"
-class="rounded-circle mx-auto"
-width="90"
-height="90">
-
-<h4 class="mt-3">{{ user.login }}</h4>
-
-<p>{{ user.contributions }} Contributions</p>
-
-<a href="{{ user.html_url }}"
-target="_blank"
-class="btn btn-dark">
-
-View Profile
-
-</a>
-
-</div>
-
-</div>
-
-{% endfor %}
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= README ================= -->
-
-<section class="container mt-5">
-
-<div class="card p-4 shadow-lg">
-
-<h2 class="mb-4">
-
-📖 README Preview
-
-</h2>
-
-<div class="readme-box">
-
-<pre>
-
-{{ repo.readme }}
-
-</pre>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= REPOSITORY INFO ================= -->
-
-<section class="container mt-5">
-
-<div class="row">
-
-<div class="col-lg-6">
-
-<div class="card p-4 shadow-lg">
-
-<h3>
-
-📂 Repository Information
-
-</h3>
-
-<table class="table table-dark">
-
-<tr>
-
-<td>Owner</td>
-
-<td>{{ repo.owner }}</td>
-
-</tr>
-
-<tr>
-
-<td>Main Language</td>
-
-<td>{{ repo.language }}</td>
-
-</tr>
-
-<tr>
-
-<td>Created</td>
-
-<td>{{ repo.created }}</td>
-
-</tr>
-
-<tr>
-
-<td>Last Updated</td>
-
-<td>{{ repo.updated }}</td>
-
-</tr>
-
-<tr>
-
-<td>Open Issues</td>
-
-<td>{{ repo.issues }}</td>
-
-</tr>
-
-</table>
-
-</div>
-
-</div>
-
-<div class="col-lg-6">
-
-<div class="card p-4 shadow-lg">
-
-<h3>
-
-🚀 Quick Actions
-
-</h3>
-
-<a href="{{ repo.url }}"
-
-target="_blank"
-
-class="btn btn-success w-100 mb-3">
-
-Open Repository
-
-</a>
-
-<button class="btn btn-primary w-100 mb-3">
-
-Download PDF Report
-
-</button>
-
-<button class="btn btn-warning w-100 mb-3">
-
-Export JSON
-
-</button>
-
-<button class="btn btn-danger w-100">
-
-❤ Add to Favorites
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= TIMELINE ================= -->
-
-<section class="container mt-5">
-
-<div class="card p-4 shadow-lg">
-
-<h2>
-
-🕒 Repository Timeline
-
-</h2>
-
-<ul class="timeline">
-
-<li>
-
-<strong>Repository Created</strong>
-
-<p>{{ repo.created }}</p>
-
-</li>
-
-<li>
-
-<strong>Latest Update</strong>
-
-<p>{{ repo.updated }}</p>
-
-</li>
-
-<li>
-
-<strong>Repository Health</strong>
-
-<p>{{ repo.health }}/100</p>
-
-</li>
-
-</ul>
-
-</div>
-
-</section>
-
-<!-- ================= FOOTER ================= -->
-
-<footer class="bg-dark text-center text-white mt-5 p-4">
-
-<h4>
-
-GitHub Insight AI
-
-</h4>
-
-<p>
-
-Professional GitHub Repository Analytics Dashboard
-
-</p>
-
-<hr>
-
-<p>
-
-Made with MANI❤️ using Flask + GitHub API + Chart.js
-
-</p>
-
-</footer>
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-</body>
-
 </html>
