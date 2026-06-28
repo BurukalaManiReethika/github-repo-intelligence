@@ -1,0 +1,36 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Favorites – GitHub Insight AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body class="home-page">
+  <nav class="navbar">
+    <a href="/" class="brand">🚀 GitHub Insight AI</a>
+    <a href="/" class="nav-link">← New Search</a>
+  </nav>
+
+  <main class="dashboard">
+    <h1 style="margin-bottom:1.5rem">⭐ Saved Repositories</h1>
+
+    {% if favorites %}
+      <div class="fav-grid">
+        {% for f in favorites %}
+          <div class="card fav-item">
+            <h3><a href="{{ f.repo_url }}" target="_blank" rel="noopener">{{ f.repo_name }}</a></h3>
+            <p>⭐ {{ f.stars }} &nbsp;|&nbsp; 🔤 {{ f.language or 'N/A' }}</p>
+            <a href="/?repo_url={{ f.repo_url }}" class="analyze-btn small">Re-analyze</a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="card" style="text-align:center;padding:3rem">
+        <p style="font-size:1.2rem;opacity:.6">No saved repositories yet.</p>
+        <a href="/" class="analyze-btn" style="display:inline-block;margin-top:1rem">Analyze a Repo →</a>
+      </div>
+    {% endif %}
+  </main>
+</body>
+</html>
